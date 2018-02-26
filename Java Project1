@@ -1,0 +1,43 @@
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+class Main
+{
+    // Print all subsets of given set[]
+   public static void total_combinations(Set<List<Integer>> allSubsets, List<Integer> nums, int sum) {
+        if (nums.size() == 0) {
+            return;
+        }
+
+        int currentSum = 0;
+        for (Integer num : nums) {
+            currentSum += num;
+        }
+
+        // does the current list add up to the needed sum?
+        if (currentSum == sum) {
+            allSubsets.add(new ArrayList<>(nums));
+        }
+
+        for (int i = 0; i < nums.size(); i++) {
+            final List<Integer> subset = new ArrayList<>(nums);
+            subset.remove(i);
+            total_combinations(allSubsets, subset, sum);
+        }
+    }
+		
+		
+
+    public static void main(String[] args) {
+        int sum = 4;//target
+        final Integer[] array = {4, 1, 3, 2};//input array
+        final HashSet<List<Integer>> allSubsets = new HashSet<>();
+
+        total_combinations(allSubsets, Arrays.asList(array), sum);
+        System.out.println(allSubsets);
+    }
+    
+}
